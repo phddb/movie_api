@@ -3,22 +3,31 @@
 <% content_for :title, "Movies" %>
 
 <%= form_with url: "/movies", method: :get do |form| %>
-  <%= form.label :query, "Search for:" %>
-  <%= form.text_field :query %>
-  <%= form.number_field :page, min: 1 %>
-  <%= form.submit "Search" %>
+  <p>
+   <%= form.label :query, "Search query: " %><%= form.text_field :query, placeholder: "movie title", value: @query %>
+  </p>
+  <p>
+    <%= form.label :page, "Page: " %><%= form.number_field :page, min: 1, max: 500, value: @page %>
+  </p>
+  <p>
+    <span class="table-placeholder"></span><%= form.submit "Search" %>
+  </p>
 <% end %>
 
-<h1>Movies</h1>
-
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <p>
-      <%= movie["title"] %>
-    </p>
-    <p>
-      <%= image_tag( movie["image_url"]) %>
-    </p>
-  <% end %>
+<div class="title">
+  <h1 >Movies</h1>
 </div>
+
+<table id="movies">
+  <tr>
+    <th>Title</th>
+    <th>Poster</th>
+  </tr>
+  <% @movies.each do |movie| %>
+    <tr>
+      <td><%= movie["title"] %></td>
+      <td><%= image_tag( movie["image_url"]) %></td>
+    </tr>
+  <% end %>
+</table>
 
